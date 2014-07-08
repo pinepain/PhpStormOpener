@@ -1,6 +1,34 @@
 PhpStormOpener
 ===============
 
+**NOTE:**
+As of May 16 there are built-in idea:// and phpstorm:// protocols support in PhpStorm 8 EAP 138.190+ [according to this comment from phpstorm team member](http://youtrack.jetbrains.com/issue/IDEA-65879#comment=27-736256).
+
+You can add new url schema support by changing url format:
+
+```php
+$handler = new \Whoops\Handler\PrettyPageHandler;
+
+// Usually you don't have exact path on your remote machine like on your local.
+// Anyway, in setEditor you may done your own, project-specific logic,
+// but what i gave here should be also not bad for start.
+$translations = array('^' . __DIR__ => '~/Development/PhpStormOpener');
+
+$handler->setEditor(
+    function ($file, $line) use ($translations) {
+
+        foreach ($translations as $from => $to) {
+            $file = preg_replace('#' . $from . '#', $to, $file, 1);
+        }
+
+        // return "pstorm://$file:$line"; // old way
+        return "phpstorm://open?file=$file&line=$line"; // as of PhpStorm 8 EAP 138.190+, without my app
+        // "idea://open?file=$file&line=$line"; // alternative way, as of PhpStorm 8 EAP 138.190+, without my app
+
+    }
+);
+```
+
 Add pstorm:// protocol support to Mac OS X to open local files in phpstorm from web. Originally designed to be used with
 [Whoops](https://github.com/filp/whoops) handler but in general may be used separately, the only requirement is valid file path in pstorm:// link.
 
