@@ -29,6 +29,8 @@ $handler->setEditor(
 );
 ```
 
+## Description
+
 Add pstorm:// protocol support to Mac OS X to open local files in phpstorm from web. Originally designed to be used with
 [Whoops](https://github.com/filp/whoops) handler but in general may be used separately, the only requirement is valid file path in pstorm:// link.
 
