@@ -1,3 +1,6 @@
+WARNING: This project is UNSUPPORTED and ABANDONED
+==================================================
+
 PhpStormOpener
 ===============
 
